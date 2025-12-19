@@ -39,6 +39,7 @@ body{
   color:var(--text);
   line-height:1.7;
 }
+
 .subtitle,
 .project p,
 .about-text {
@@ -107,7 +108,6 @@ a:hover{ text-decoration:none; }
   letter-spacing:.2px;
 }
 
-
 nav ul{
   display:flex;
   align-items:center;
@@ -154,31 +154,18 @@ nav a:hover{
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.menu-btn span:nth-child(1) {
-  top: 13px;
-}
-
-.menu-btn span:nth-child(2) {
-  top: 20px;
-}
-
-.menu-btn span:nth-child(3) {
-  top: 27px;
-}
+.menu-btn span:nth-child(1) { top: 13px; }
+.menu-btn span:nth-child(2) { top: 20px; }
+.menu-btn span:nth-child(3) { top: 27px; }
 
 /* Active (X icon) */
 .menu-btn[aria-expanded="true"] span:nth-child(1) {
   transform: translateX(-50%) translateY(7px) rotate(45deg);
 }
-
-.menu-btn[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
-}
-
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .menu-btn[aria-expanded="true"] span:nth-child(3) {
   transform: translateX(-50%) translateY(-7px) rotate(-45deg);
 }
-
 
 /* =========================
    UI PRIMITIVES
@@ -214,10 +201,8 @@ nav a:hover{
   border-radius:var(--radius-lg);
   box-shadow:var(--shadow);
 }
-.card:hover {
-  transform: translateY(-2px);
-}
 
+.card:hover { transform: translateY(-2px); }
 
 .meta, .tags{
   display:flex;
@@ -249,7 +234,7 @@ nav a:hover{
   display:grid;
   grid-template-columns: 1fr 210px;
   gap:1.2rem;
-  align-items:center;          /* key: fixes “floating” feeling */
+  align-items:center;
   max-width:1100px;
   margin:0 auto;
 }
@@ -271,7 +256,7 @@ nav a:hover{
 .hero-side{
   display:grid;
   justify-items:end;
-  align-content:center;        /* key: centers the right column */
+  align-content:center;
   gap:.9rem;
 }
 
@@ -288,8 +273,8 @@ nav a:hover{
   margin:0 0 .85rem;
   font-size:clamp(2.1rem, 4vw, 3.2rem);
   line-height:1.08;
-    max-width: 22ch;      /* was too small, causing tall wrap */
-  text-wrap: balance;   /* modern browsers: makes lines more even */            /* keeps line breaks clean */
+  max-width: 22ch;
+  text-wrap: balance;
 }
 
 .subtitle{
@@ -305,7 +290,7 @@ nav a:hover{
   margin-top:1.25rem;
 }
 
-/* Avatar (FIXED — no duplicate styles) */
+/* Avatar */
 .hero-avatar{
   width:120px;
   height:120px;
@@ -375,9 +360,11 @@ nav a:hover{
 /* =========================
    SECTIONS
 ========================= */
-.section{ padding:3.5rem 0; 
-position: relative;
+.section{ 
+  padding:3.5rem 0; 
+  position: relative;
 }
+
 .section::before {
   content: "";
   position: absolute;
@@ -705,7 +692,6 @@ input:focus, textarea:focus{ border-color:rgba(124,140,255,.65); }
 
 textarea { min-height: 140px; }
 
-
 /* =========================
    FOOTER
 ========================= */
@@ -738,11 +724,9 @@ textarea { min-height: 140px; }
   }
 }
 
-
 @media (max-width: 640px) {
-  nav ul {
-    display: none;
-  }
+  /* hamburger menu */
+  nav ul { display: none; }
 
   nav ul.open {
     display: flex;
@@ -763,5 +747,109 @@ textarea { min-height: 140px; }
     align-items: center;
     justify-content: center;
   }
-}
 
+  /* =========================
+     MOBILE IMPROVEMENTS
+  ========================= */
+
+  /* 1) Reduce hero height */
+  .hero { 
+    padding: 2.6rem 0 2rem;
+  }
+
+  .hero-card {
+    padding: 1.35rem;
+    gap: .9rem;
+  }
+
+  .kicker{
+    margin: 0 0 .45rem;
+    font-size: .72rem;
+  }
+
+  .hero-card h1{
+    font-size: clamp(1.65rem, 7vw, 2.15rem);
+    line-height: 1.1;
+    margin: 0 0 .65rem;
+    max-width: 26ch;
+  }
+
+  .subtitle{
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+
+  .cta{
+    margin-top: 1rem;
+    gap: .6rem;
+  }
+
+  .btn{
+    padding: .62rem .95rem;
+  }
+
+  /* Smaller avatar */
+  .hero-avatar{
+    width: 92px;
+    height: 92px;
+  }
+
+  /* Right mini card tighter */
+  .hero-side-card{
+    padding: .75rem .85rem;
+  }
+
+  .hero-side-text{
+    font-size: .88rem;
+  }
+
+  /* 2) Highlights compact */
+  .hero-highlights{
+    margin-top: .95rem;
+    gap: .5rem;
+  }
+
+  .mini{
+    padding: .48rem .65rem;
+  }
+
+  .mini strong{ font-size: .9rem; }
+  .mini span{ font-size: .82rem; }
+
+  /* Optional: hide Apollo badge if you added class="mini apollo" */
+  .mini.apollo{
+    display:none;
+  }
+
+  /* 3) Sections tighter */
+  .section{
+    padding: 2.6rem 0;
+  }
+
+  .section-header h2{
+    font-size: 1.4rem;
+  }
+
+  /* 4) Dots slightly smaller */
+  .projects-dot{
+    width: 7px;
+    height: 7px;
+  }
+  .projects-dot.active{
+    width: 18px;
+  }
+
+  /* 5) Skills tighter */
+  .skill-card{
+    padding: 1.15rem;
+  }
+
+  .skill-card h3{
+    margin: 0 0 .65rem;
+  }
+
+  .chip{
+    font-size: .82rem;
+    padding: .3rem .6rem;
+  }
+}
