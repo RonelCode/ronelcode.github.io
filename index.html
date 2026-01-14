@@ -17,16 +17,17 @@
       </a>
 
       <nav aria-label="Primary navigation">
-         <button
-  class="menu-btn"
-  id="menuBtn"
-  aria-label="Open menu"
-  aria-expanded="false"
->
-  <span></span>
-  <span></span>
-  <span></span>
-
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="menu"
+          type="button"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
         <ul id="menu">
@@ -115,21 +116,20 @@
         <div class="projects-carousel" data-projects-carousel>
           <div class="projects-track" data-projects-track>
 
-            <!-- Project 1 -->
+            <!-- Project 1 (FIXED + Updated content) -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
                   <div class="carousel-track" data-track>
-                    <img src="assets/images/projects/10-1.png" alt="Publishing Knowledge-base System 1" />
-                    <img src="assets/images/projects/10-2.png" alt="Publishing Knowledge-base System 2" />
-                    <img src="assets/images/projects/10-3.png" alt="Publishing Knowledge-base System 3" />
-                    <img src="assets/images/projects/10-4.png" alt="Publishing Knowledge-base System 4" />
-                    <img src="assets/images/projects/10-5.png" alt="Publishing Knowledge-base System 5" />
-                    <img src="assets/images/projects/10-6.png" alt="Publishing Knowledge-base System 6" />
-                    <img src="assets/images/projects/10-7.png" alt="Publishing Knowledge-base System 7" />
-                    <img src="assets/images/projects/10-8.png" alt="Publishing Knowledge-base System 8" />
-                    <img src="assets/images/projects/10-9.png" alt="Publishing Knowledge-base System 9" />
-
+                    <img src="assets/images/projects/10-1.png" alt="Portal screenshot 1" />
+                    <img src="assets/images/projects/10-2.png" alt="Portal screenshot 2" />
+                    <img src="assets/images/projects/10-3.png" alt="Portal screenshot 3" />
+                    <img src="assets/images/projects/10-4.png" alt="Portal screenshot 4" />
+                    <img src="assets/images/projects/10-5.png" alt="Portal screenshot 5" />
+                    <img src="assets/images/projects/10-6.png" alt="Portal screenshot 6" />
+                    <img src="assets/images/projects/10-7.png" alt="Portal screenshot 7" />
+                    <img src="assets/images/projects/10-8.png" alt="Portal screenshot 8" />
+                    <img src="assets/images/projects/10-9.png" alt="Portal screenshot 9" />
                   </div>
 
                   <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
@@ -138,103 +138,72 @@
                 </div>
               </div>
 
-            <div class="project-body">
-  <h3>Enterprise Training & Workflow Portal</h3>
+              <div class="project-body">
+                <h3>Enterprise Training &amp; Workflow Portal</h3>
 
-  <p>
-    Role-based internal web portal to manage employee training, quizzes, production workflows,
-    learning materials, and announcements in one system.
-  </p>
+                <p>
+                  Role-based internal web portal to manage employee training, quizzes, production workflows,
+                  learning materials, and announcements in one system.
+                </p>
 
-  <!-- Quick highlights -->
-  <ul class="project-points">
-    <li>Role-based access (Admin, Manager, Production, Sales)</li>
-    <li>Training modules + quizzes + attempt tracking</li>
-    <li>Production projects tracking with progress + update logs</li>
-    <li>Admin tools: users, modules, materials, announcements, audit logs</li>
-  </ul>
+                <ul class="project-points">
+                  <li>Role-based access (Admin, Manager, Production, Sales)</li>
+                  <li>Training modules + quizzes + attempt tracking</li>
+                  <li>Production projects tracking with progress + update logs</li>
+                  <li>Admin tools: users, modules, materials, announcements, audit logs</li>
+                </ul>
 
-  <!-- Tech stack tags -->
-  <div class="tags">
-    <span class="chip">PHP</span>
-    <span class="chip">MySQL</span>
-    <span class="chip">Bootstrap</span>
-    <span class="chip">JavaScript</span>
-    <span class="chip">Auth + Roles</span>
-    <span class="chip">CSRF</span>
-  </div>
+                <div class="tags">
+                  <span class="chip">PHP</span>
+                  <span class="chip">MySQL</span>
+                  <span class="chip">Bootstrap</span>
+                  <span class="chip">JavaScript</span>
+                  <span class="chip">Auth + Roles</span>
+                  <span class="chip">CSRF</span>
+                </div>
 
-  <div class="links">
-    <button class="btn" type="button"
-      data-modal-open="case-portal"
-      aria-haspopup="dialog">
-      Case Study
-    </button>
-
-    <!-- If it's private, don’t link random live sites -->
-    <span class="muted" style="margin-left:10px;">Demo available on request</span>
-  </div>
-</div>
-
-
-                    
-           <!-- Project 0 -->
-<article class="card project project-slide">
-  <div class="project-media">
-    <div class="carousel" data-carousel>
-      <div class="carousel-track" data-track>
-        <img src="assets/images/projects/10-1.png" alt="Publishing Knowledge-base System 1" />
-        <img src="assets/images/projects/10-2.png" alt="Publishing Knowledge-base System 2" />
-        <img src="assets/images/projects/10-3.png" alt="Publishing Knowledge-base System 3" />
-        <img src="assets/images/projects/10-4.png" alt="Publishing Knowledge-base System 4" />
-        <img src="assets/images/projects/10-5.png" alt="Publishing Knowledge-base System 5" />
-        <img src="assets/images/projects/10-6.png" alt="Publishing Knowledge-base System 6" />
-        <img src="assets/images/projects/10-7.png" alt="Publishing Knowledge-base System 7" />
-        <img src="assets/images/projects/10-8.png" alt="Publishing Knowledge-base System 8" />
-        <img src="assets/images/projects/10-9.png" alt="Publishing Knowledge-base System 9" />
-      </div>
-
-      <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
-      <button class="carousel-btn next" type="button" aria-label="Next image" data-next>›</button>
-      <div class="carousel-dots" data-dots aria-label="Image navigation"></div>
-    </div>
-  </div>
-
-  <div class="project-body">
-    <h3>Enterprise Training & Workflow Portal</h3>
-
-    <p>
-      Role-based internal web portal to manage employee training, quizzes, production workflows,
-      learning materials, and announcements in one system.
-    </p>
-
-    <ul class="project-points">
-      <li>Role-based access (Admin, Manager, Production, Sales)</li>
-      <li>Training modules + quizzes + attempt tracking</li>
-      <li>Production projects tracking with progress + update logs</li>
-      <li>Admin tools: users, modules, materials, announcements, audit logs</li>
-    </ul>
-
-    <div class="tags">
-      <span class="chip">PHP</span>
-      <span class="chip">MySQL</span>
-      <span class="chip">Bootstrap</span>
-      <span class="chip">JavaScript</span>
-      <span class="chip">Auth + Roles</span>
-      <span class="chip">CSRF</span>
-    </div>
-
-    <div class="links">
-      <button class="btn" type="button" data-modal-open="case-portal" aria-haspopup="dialog">
-        Case Study
-      </button>
-      <span class="muted" style="margin-left:10px;">Demo available on request</span>
-    </div>
-  </div>
-</article>
-
+                <div class="links">
+                  <button class="btn" type="button" data-modal-open="case-portal" aria-haspopup="dialog">
+                    Case Study
+                  </button>
+                  <span class="muted" style="margin-left:10px;">Demo available on request</span>
+                </div>
+              </div>
+            </article>
 
             <!-- Project 2 -->
+            <article class="card project project-slide">
+              <div class="project-media">
+                <div class="carousel" data-carousel>
+                  <div class="carousel-track" data-track>
+                    <img src="assets/images/projects/project-1-1.jpg" alt="Business website screenshot 1" />
+                    <img src="assets/images/projects/1-2.png" alt="Business website screenshot 2" />
+                    <img src="assets/images/projects/1-3.png" alt="Business website screenshot 3" />
+                  </div>
+
+                  <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
+                  <button class="carousel-btn next" type="button" aria-label="Next image" data-next>›</button>
+                  <div class="carousel-dots" data-dots aria-label="Image navigation"></div>
+                </div>
+              </div>
+
+              <div class="project-body">
+                <h3>Business Website</h3>
+                <p>Corporate website built with WordPress to support branding and lead generation.</p>
+
+                <div class="tags">
+                  <span class="chip">WordPress</span>
+                  <span class="chip">Elementor</span>
+                  <span class="chip">UI</span>
+                </div>
+
+                <div class="links">
+                  <a href="https://tailoredsucorp.com/" target="_blank" rel="noreferrer">Live</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -267,7 +236,7 @@
               </div>
             </article>
 
-            <!-- Project 3 -->
+            <!-- Project 4 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -298,7 +267,7 @@
               </div>
             </article>
 
-            <!-- Project 4 -->
+            <!-- Project 5 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -329,7 +298,7 @@
               </div>
             </article>
 
-            <!-- Project 5 -->
+            <!-- Project 6 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -361,7 +330,7 @@
               </div>
             </article>
 
-             <!-- Project 6 -->
+            <!-- Project 7 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -392,14 +361,14 @@
               </div>
             </article>
 
-            <!-- Project 7 -->
+            <!-- Project 8 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
                   <div class="carousel-track" data-track>
                     <img src="assets/images/projects/7-1.png" alt="Author website screenshot 1" />
                     <img src="assets/images/projects/7-2.png" alt="Author website screenshot 2" />
-                     <img src="assets/images/projects/7-3.png" alt="Author website screenshot 3" />
+                    <img src="assets/images/projects/7-3.png" alt="Author website screenshot 3" />
                   </div>
 
                   <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
@@ -416,7 +385,7 @@
                   <span class="chip">WordPress</span>
                   <span class="chip">Elementor</span>
                   <span class="chip">Web Design</span>
-                    <span class="chip">WooCommerce</span>
+                  <span class="chip">WooCommerce</span>
                 </div>
 
                 <div class="links">
@@ -425,15 +394,15 @@
               </div>
             </article>
 
-             <!-- Project 8 -->
+            <!-- Project 9 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
                   <div class="carousel-track" data-track>
-                    <img src="assets/images/projects/8-1.png" alt="Author website screenshot 1" />
-                    <img src="assets/images/projects/8-2.png" alt="Author website screenshot 2" />
-                     <img src="assets/images/projects/8-3.png" alt="Author website screenshot 3" />
-                         <img src="assets/images/projects/8-4.png" alt="Author website screenshot 3" />
+                    <img src="assets/images/projects/8-1.png" alt="Website rebuild screenshot 1" />
+                    <img src="assets/images/projects/8-2.png" alt="Website rebuild screenshot 2" />
+                    <img src="assets/images/projects/8-3.png" alt="Website rebuild screenshot 3" />
+                    <img src="assets/images/projects/8-4.png" alt="Website rebuild screenshot 4" />
                   </div>
 
                   <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
@@ -458,14 +427,14 @@
               </div>
             </article>
 
-            <!-- Project 9 -->
+            <!-- Project 10 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
                   <div class="carousel-track" data-track>
-                    <img src="assets/images/projects/9-1.png" alt="Author website screenshot 1" />
-                    <img src="assets/images/projects/9-2.png" alt="Author website screenshot 2" />
-                     <img src="assets/images/projects/9-3.png" alt="Author website screenshot 3" />
+                    <img src="assets/images/projects/9-1.png" alt="Website rebuild screenshot 1" />
+                    <img src="assets/images/projects/9-2.png" alt="Website rebuild screenshot 2" />
+                    <img src="assets/images/projects/9-3.png" alt="Website rebuild screenshot 3" />
                   </div>
 
                   <button class="carousel-btn prev" type="button" aria-label="Previous image" data-prev>‹</button>
@@ -489,7 +458,6 @@
                 </div>
               </div>
             </article>
-
 
           </div>
 
@@ -573,61 +541,96 @@
     </section>
 
     <!-- Contact -->
-   <!-- Contact -->
-<section id="contact" class="section">
-  <div class="container contact-grid">
+    <section id="contact" class="section">
+      <div class="container contact-grid">
 
-    <!-- Left: Contact card (upgraded) -->
-    <div class="card section-pad contact-card">
-      <h3>Let’s work together</h3>
-      <p class="muted">Open to freelance, contract, and full-time opportunities.</p>
+        <!-- Left -->
+        <div class="card section-pad contact-card">
+          <h3>Let’s work together</h3>
+          <p class="muted">Open to freelance, contract, and full-time opportunities.</p>
 
-      <div class="contact-badges" aria-label="Available for">
-        <span class="chip">Web Builds</span>
-        <span class="chip">CRM Setup</span>
-        <span class="chip">Automation</span>
-        <span class="chip">Lead Gen</span>
+          <div class="contact-badges" aria-label="Available for">
+            <span class="chip">Web Builds</span>
+            <span class="chip">CRM Setup</span>
+            <span class="chip">Automation</span>
+            <span class="chip">Lead Gen</span>
+          </div>
+
+          <ul class="contact-list" aria-label="Contact links">
+            <li>
+              <span class="icon" aria-hidden="true">✉️</span>
+              <a href="mailto:ronelalivio24@gmail.com">ronelalivio24@gmail.com</a>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">🔗</span>
+              <a href="https://www.linkedin.com/in/ronel-alivio-1a858821a/" target="_blank" rel="noreferrer">
+                linkedin.com/in/ronel-alivio-1a858821a/
+              </a>
+            </li>
+          </ul>
+
+          <div class="contact-actions">
+            <a class="btn primary" href="mailto:ronelalivio24@gmail.com">Email me</a>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <form class="card contact-form" id="contactForm">
+          <h3>Send a message</h3>
+          <p class="muted form-sub">Tell me a bit about what you need — I’ll reply soon.</p>
+
+          <label for="fullName" class="sr-only">Your Name</label>
+          <input id="fullName" name="name" type="text" placeholder="Your Name" required />
+
+          <label for="email" class="sr-only">Your Email</label>
+          <input id="email" name="email" type="email" placeholder="Your Email" required />
+
+          <label for="message" class="sr-only">Your Message</label>
+          <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+
+          <button class="btn primary" type="submit">Send</button>
+          <p class="form-note" id="formNote" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ Case Study Modal (added) -->
+  <div class="modal" id="case-portal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="casePortalTitle">
+    <div class="modal-backdrop" data-modal-close></div>
+
+    <div class="modal-card" role="document">
+      <div class="modal-head">
+        <h3 id="casePortalTitle">Enterprise Training &amp; Workflow Portal</h3>
+        <button class="modal-close" type="button" aria-label="Close" data-modal-close>✕</button>
       </div>
 
-      <ul class="contact-list" aria-label="Contact links">
-        <li>
-          <span class="icon" aria-hidden="true">✉️</span>
-          <a href="mailto:ronelalivio24@gmail.com">ronelalivio24@gmail.com</a>
-        </li>
-        <li>
-          <span class="icon" aria-hidden="true">🔗</span>
-          <a href="https://www.linkedin.com/in/ronel-alivio-1a858821a/" target="_blank" rel="noreferrer">linkedin.com/in/ronel-alivio-1a858821a/</a>
-        </li>
-      </ul>
+      <div class="modal-body">
+        <p class="muted">
+          Internal system built to centralize training, quizzes, production tracking, and announcements.
+        </p>
 
-      <div class="contact-actions">
-        <a class="btn primary" href="mailto:ronelalivio24@gmail.com">Email me</a>
+        <h4>My Role</h4>
+        <p>Full-stack developer — system design, database schema, UI implementation, and security.</p>
 
+        <h4>Key Features</h4>
+        <ul>
+          <li>Login + roles (sales, production, manager, admin)</li>
+          <li>Training modules (video/pdf/link/text) + quizzes + attempts</li>
+          <li>Essay grading workflow</li>
+          <li>Production projects with progress + update logs</li>
+          <li>Learning materials + announcements</li>
+          <li>Admin CRUD + audit logs</li>
+        </ul>
+
+        <h4>Tech Stack</h4>
+        <p>PHP 8 (PDO), MySQL/MariaDB, Bootstrap, JavaScript</p>
+
+        <p class="muted">Access is restricted (internal use). Demo available upon request.</p>
       </div>
     </div>
-
-    <!-- Right: Form (polished) -->
-    <form class="card contact-form" id="contactForm">
-      <h3>Send a message</h3>
-      <p class="muted form-sub">Tell me a bit about what you need — I’ll reply soon.</p>
-
-      <label for="fullName" class="sr-only">Your Name</label>
-      <input id="fullName" name="name" type="text" placeholder="Your Name" required />
-
-      <label for="email" class="sr-only">Your Email</label>
-      <input id="email" name="email" type="email" placeholder="Your Email" required />
-
-      <label for="message" class="sr-only">Your Message</label>
-      <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-
-      <button class="btn primary" type="submit">Send</button>
-      <p class="form-note" id="formNote" aria-live="polite"></p>
-    </form>
-
   </div>
-</section>
-
-  </main>
 
   <footer class="footer">
     <p>© <span id="year"></span> Ronel Alivio</p>
