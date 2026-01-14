@@ -310,3 +310,45 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     requestAnimationFrame(() => startAutoplay());
   });
 })();
+
+// ===========================
+// Image Preview Lightbox
+// ===========================
+(() => {
+  const preview = document.getElementById("imgPreview");
+  const previewImg = document.getElementById("imgPreviewImg");
+
+  if (!preview || !previewImg) return;
+
+  // Open preview when clicking any carousel image
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".carousel img");
+    if (!img) return;
+
+    previewImg.src = img.src;
+    preview.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  });
+
+  // Close preview
+  function closePreview() {
+    preview.setAttribute("aria-hidden", "true");
+    previewImg.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // Click outside image
+  preview.addEventListener("click", (e) => {
+    if (e.target === preview || e.target.classList.contains("img-preview-backdrop")) {
+      closePreview();
+    }
+  });
+
+  // ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && preview.getAttribute("aria-hidden") === "false") {
+      closePreview();
+    }
+  });
+})();
+
