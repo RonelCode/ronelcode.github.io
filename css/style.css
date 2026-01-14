@@ -853,3 +853,51 @@ textarea { min-height: 140px; }
     padding: .3rem .6rem;
   }
 }
+
+/* ===========================
+   Image Preview Lightbox
+=========================== */
+.img-preview{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 10000;
+}
+.img-preview[aria-hidden="false"]{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-preview-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(6px);
+}
+
+#imgPreviewImg{
+  position: relative;
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 14px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.6);
+  animation: zoomIn .18s ease-out;
+}
+
+@keyframes zoomIn{
+  from{
+    transform: scale(.96);
+    opacity: .6;
+  }
+  to{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Cursor hint */
+.carousel img{
+  cursor: zoom-in;
+}
+
