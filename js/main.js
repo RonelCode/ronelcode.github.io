@@ -312,7 +312,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 })();
 
 // ===========================
-// Image Preview Lightbox
+// Image Preview Lightbox + Arrow Navigation
 // ===========================
 (() => {
   const preview = document.getElementById("imgPreview");
@@ -320,35 +320,76 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 
   if (!preview || !previewImg) return;
 
-  // Open preview when clicking any carousel image
-  document.addEventListener("click", (e) => {
-    const img = e.target.closest(".carousel img");
-    if (!img) return;
+  // State for navigation
+  let currentImages = [];
+  let currentIndex = -1;
 
-    previewImg.src = img.src;
+  function openPreview(imgEl) {
+    // Only navigate within the same carousel
+    const carousel = imgEl.closest(".carousel");
+    if (!carousel) return;
+
+    currentImages = Array.from(carousel.querySelectorAll("img"));
+    currentIndex = currentImages.indexOf(imgEl);
+
+    previewImg.src = imgEl.src;
     preview.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-  });
+  }
 
-  // Close preview
   function closePreview() {
     preview.setAttribute("aria-hidden", "true");
     previewImg.src = "";
     document.body.style.overflow = "";
+    currentImages = [];
+    currentIndex = -1;
   }
 
-  // Click outside image
+  function showIndex(nextIndex) {
+    if (!currentImages.length) return;
+
+    // Wrap around
+    if (nextIndex < 0) nextIndex = currentImages.length - 1;
+    if (nextIndex >= currentImages.length) nextIndex = 0;
+
+    currentIndex = nextIndex;
+    previewImg.src = currentImages[currentIndex].src;
+  }
+
+  // Open on click
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".carousel img");
+    if (!img) return;
+    openPreview(img);
+  });
+
+  // Close when clicking backdrop/outside
   preview.addEventListener("click", (e) => {
     if (e.target === preview || e.target.classList.contains("img-preview-backdrop")) {
       closePreview();
     }
   });
 
-  // ESC key
+  // Keyboard controls (ESC + arrows)
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && preview.getAttribute("aria-hidden") === "false") {
+    const isOpen = preview.getAttribute("aria-hidden") === "false";
+    if (!isOpen) return;
+
+    if (e.key === "Escape") {
       closePreview();
+      return;
+    }
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      showIndex(currentIndex + 1);
+      return;
+    }
+
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      showIndex(currentIndex - 1);
+      return;
     }
   });
 })();
-
