@@ -212,6 +212,8 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const preview = document.getElementById("imgPreview");
   const previewImg = document.getElementById("imgPreviewImg");
   const closeBtn = preview?.querySelector(".img-preview-close");
+  const prevBtn = preview?.querySelector(".img-preview-nav.prev");
+  const nextBtn = preview?.querySelector(".img-preview-nav.next");
 
   if (!preview || !previewImg) return;
 
@@ -244,26 +246,34 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     previewImg.src = currentImages[currentIndex].src;
   }
 
-  // Open preview (ignore buttons/dots)
+  // Open on image click (ignore buttons)
   document.addEventListener("click", (e) => {
     if (e.target.closest("button")) return;
     const img = e.target.closest(".carousel img");
     if (img) openPreview(img);
   });
 
+  // Buttons
   closeBtn?.addEventListener("click", closePreview);
+  prevBtn?.addEventListener("click", () => showIndex(currentIndex - 1));
+  nextBtn?.addEventListener("click", () => showIndex(currentIndex + 1));
 
+  // Backdrop click
   preview.addEventListener("click", (e) => {
-    if (e.target === preview || e.target.classList.contains("img-preview-backdrop")) {
+    if (
+      e.target === preview ||
+      e.target.classList.contains("img-preview-backdrop")
+    ) {
       closePreview();
     }
   });
 
+  // Keyboard support
   document.addEventListener("keydown", (e) => {
     if (preview.getAttribute("aria-hidden") !== "false") return;
 
     if (e.key === "Escape") closePreview();
-    if (e.key === "ArrowRight") showIndex(currentIndex + 1);
     if (e.key === "ArrowLeft") showIndex(currentIndex - 1);
+    if (e.key === "ArrowRight") showIndex(currentIndex + 1);
   });
 })();
