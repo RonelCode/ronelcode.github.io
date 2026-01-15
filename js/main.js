@@ -1,5 +1,5 @@
 // =====================
-// Mobile menu toggle (toggles class on <ul>#menu)
+// Mobile menu toggle
 // =====================
 const menuBtn = document.getElementById("menuBtn");
 const menu = document.getElementById("menu");
@@ -98,8 +98,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 });
 
 // =====================
-// Projects carousel (desktop: 2 per view, mobile: 1 per view) + autoplay
-// Autoplay ONLY when mouse is NOT inside the projects area
+// Projects carousel (desktop 2 / mobile 1) + autoplay
 // =====================
 (function initProjectsCarousel() {
   const root = document.querySelector("[data-projects-carousel]");
@@ -109,32 +108,21 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   if (!track) return;
 
   const slides = Array.from(track.querySelectorAll(".project-slide"));
-  if (slides.length === 0) return;
+  if (!slides.length) return;
 
   const prev = document.querySelector("[data-proj-prev]");
   const next = document.querySelector("[data-proj-next]");
   const dotsWrap = root.querySelector("[data-projects-dots]");
-
-  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-
-  // ✅ Single source of truth for breakpoint
-  const mobileMQ = window.matchMedia("(max-width: 900px)");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let index = 0;
-  let perView = mobileMQ.matches ? 1 : 2;
+  let perView = window.matchMedia("(max-width: 768px)").matches ? 1 : 2;
 
-  function getGapPx() {
-    const gap = getComputedStyle(track).gap || "0px";
-    return Number.parseFloat(gap) || 0;
+  function updatePerView() {
+    perView = window.matchMedia("(max-width: 768px)").matches ? 1 : 2;
   }
 
- function updatePerView() {
-  perView = window.matchMedia("(max-width: 768px)").matches ? 1 : 2;
-}
-
-
   function maxIndex() {
-    // move by 1 card per step, but clamp so last view stays filled
     return Math.max(0, slides.length - perView);
   }
 
@@ -142,180 +130,83 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     index = Math.min(Math.max(index, 0), maxIndex());
   }
 
+  function getGapPx() {
+    return parseFloat(getComputedStyle(track).gap || "0") || 0;
+  }
+
   function buildDots() {
     if (!dotsWrap) return;
     dotsWrap.innerHTML = "";
-
-    const pages = maxIndex() + 1;
-    for (let i = 0; i < pages; i++) {
+    for (let i = 0; i <= maxIndex(); i++) {
       const b = document.createElement("button");
-      b.type = "button";
       b.className = "projects-dot" + (i === index ? " active" : "");
-      b.setAttribute("aria-label", `Go to project set ${i + 1}`);
       b.addEventListener("click", () => goTo(i, true));
       dotsWrap.appendChild(b);
     }
   }
 
-  function updateDots() {
-    if (!dotsWrap) return;
-    const dots = Array.from(dotsWrap.querySelectorAll(".projects-dot"));
-    dots.forEach((d, i) => d.classList.toggle("active", i === index));
-  }
-
   function updateTransform() {
-    const first = slides[0];
-    if (!first) return;
-
-    // ✅ Use actual rendered card width (works for 1 or 2 per view)
-    const slideW = first.getBoundingClientRect().width;
-    const gap = getGapPx();
-    const offset = (slideW + gap) * index;
-
+    const slideW = slides[0].getBoundingClientRect().width;
+    const offset = (slideW + getGapPx()) * index;
     track.style.transform = `translateX(-${offset}px)`;
-    updateDots();
+    dotsWrap?.querySelectorAll(".projects-dot").forEach((d, i) =>
+      d.classList.toggle("active", i === index)
+    );
   }
 
-  function goTo(i, userInitiated = false) {
+  function goTo(i, user = false) {
     index = i;
     clampIndex();
     updateTransform();
-    if (userInitiated) softPause();
+    if (user) pauseTemporarily();
   }
 
-  function nextStep(userInitiated = false) {
-    if (index >= maxIndex()) goTo(0, userInitiated);
-    else goTo(index + 1, userInitiated);
+  function nextStep(user = false) {
+    goTo(index >= maxIndex() ? 0 : index + 1, user);
   }
 
-  function prevStep(userInitiated = false) {
-    if (index <= 0) goTo(maxIndex(), userInitiated);
-    else goTo(index - 1, userInitiated);
+  function prevStep(user = false) {
+    goTo(index <= 0 ? maxIndex() : index - 1, user);
   }
 
   prev?.addEventListener("click", () => prevStep(true));
   next?.addEventListener("click", () => nextStep(true));
 
-  // Swipe support (pointer)
-  let startX = 0;
-  let isDown = false;
-
-  root.addEventListener("pointerdown", (e) => {
-    isDown = true;
-    startX = e.clientX;
-    pause();
-  });
-
-  root.addEventListener("pointerup", (e) => {
-    if (!isDown) return;
-    isDown = false;
-
-    const diff = e.clientX - startX;
-    if (Math.abs(diff) > 40) {
-      if (diff < 0) nextStep(true);
-      else prevStep(true);
-    }
-    resumeIfAllowed();
-  });
-
-  root.addEventListener("pointercancel", () => {
-    isDown = false;
-    resumeIfAllowed();
-  });
-
-  // Keyboard support
-  root.setAttribute("tabindex", "0");
-  root.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") prevStep(true);
-    if (e.key === "ArrowRight") nextStep(true);
-  });
-
-  // ---------------------
-  // Autoplay logic
-  // ---------------------
-  const autoplayMs = 4500;
+  // Autoplay
   let timer = null;
   let paused = false;
-  let softPauseTimer = null;
 
   function startAutoplay() {
     if (prefersReducedMotion) return;
-    stopAutoplay();
-    timer = setInterval(() => {
-      if (!paused) nextStep(false);
-    }, autoplayMs);
+    timer = setInterval(() => !paused && nextStep(), 4500);
   }
 
-  function stopAutoplay() {
-    if (timer) clearInterval(timer);
-    timer = null;
-  }
-
-  function pause() {
+  function pauseTemporarily() {
     paused = true;
+    setTimeout(() => (paused = false), 1800);
   }
 
-  function resume() {
-    paused = false;
-  }
+  root.addEventListener("mouseenter", () => (paused = true));
+  root.addEventListener("mouseleave", () => (paused = false));
 
-  function softPause() {
-    pause();
-    if (softPauseTimer) clearTimeout(softPauseTimer);
-    softPauseTimer = setTimeout(() => {
-      resumeIfAllowed();
-    }, 1800);
-  }
-
-  function isPointerInsideRoot() {
-    return root.matches(":hover");
-  }
-
-  function resumeIfAllowed() {
-    if (!document.hidden && !isPointerInsideRoot() && !root.contains(document.activeElement)) {
-      resume();
-    }
-  }
-
-  root.addEventListener("mouseenter", () => pause());
-  root.addEventListener("mouseleave", () => resumeIfAllowed());
-  root.addEventListener("focusin", () => pause());
-  root.addEventListener("focusout", () => resumeIfAllowed());
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) pause();
-    else resumeIfAllowed();
-  });
-
-  // ✅ Rebuild on breakpoint change AND resize (this is the real fix)
-  function reflowCarousel() {
+  window.addEventListener("resize", () => {
     updatePerView();
     clampIndex();
     buildDots();
-    // measure after layout settles
-    requestAnimationFrame(() => {
-      updateTransform();
-    });
-  }
+    updateTransform();
+  });
 
-  window.addEventListener("resize", reflowCarousel);
-  mobileMQ.addEventListener?.("change", reflowCarousel);
-
-  // Init (double RAF avoids “wrong width” on first paint sometimes)
   updatePerView();
   clampIndex();
   buildDots();
   requestAnimationFrame(() => {
     updateTransform();
-    requestAnimationFrame(() => startAutoplay());
+    startAutoplay();
   });
 })();
 
 // ===========================
 // Image Preview Lightbox
-// - Click image to open
-// - Arrow keys navigate
-// - ESC / Close button / Click backdrop to close
 // ===========================
 (() => {
   const preview = document.getElementById("imgPreview");
@@ -347,56 +238,32 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     currentIndex = -1;
   }
 
-  function showIndex(nextIndex) {
+  function showIndex(i) {
     if (!currentImages.length) return;
-
-    if (nextIndex < 0) nextIndex = currentImages.length - 1;
-    if (nextIndex >= currentImages.length) nextIndex = 0;
-
-    currentIndex = nextIndex;
+    currentIndex = (i + currentImages.length) % currentImages.length;
     previewImg.src = currentImages[currentIndex].src;
   }
 
-  // Open on image click
+  // Open preview (ignore buttons/dots)
   document.addEventListener("click", (e) => {
+    if (e.target.closest("button")) return;
     const img = e.target.closest(".carousel img");
-    if (!img) return;
-    openPreview(img);
+    if (img) openPreview(img);
   });
 
-  // Close button
   closeBtn?.addEventListener("click", closePreview);
 
-  // Click backdrop / outside image
   preview.addEventListener("click", (e) => {
-    if (
-      e.target === preview ||
-      e.target.classList.contains("img-preview-backdrop")
-    ) {
+    if (e.target === preview || e.target.classList.contains("img-preview-backdrop")) {
       closePreview();
     }
   });
 
-  // Keyboard controls
   document.addEventListener("keydown", (e) => {
-    const isOpen = preview.getAttribute("aria-hidden") === "false";
-    if (!isOpen) return;
+    if (preview.getAttribute("aria-hidden") !== "false") return;
 
-    if (e.key === "Escape") {
-      closePreview();
-      return;
-    }
-
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      showIndex(currentIndex + 1);
-      return;
-    }
-
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      showIndex(currentIndex - 1);
-    }
+    if (e.key === "Escape") closePreview();
+    if (e.key === "ArrowRight") showIndex(currentIndex + 1);
+    if (e.key === "ArrowLeft") showIndex(currentIndex - 1);
   });
 })();
-
