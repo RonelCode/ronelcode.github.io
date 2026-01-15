@@ -312,20 +312,22 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 })();
 
 // ===========================
-// Image Preview Lightbox + Arrow Navigation
+// Image Preview Lightbox
+// - Click image to open
+// - Arrow keys navigate
+// - ESC / Close button / Click backdrop to close
 // ===========================
 (() => {
   const preview = document.getElementById("imgPreview");
   const previewImg = document.getElementById("imgPreviewImg");
+  const closeBtn = preview?.querySelector(".img-preview-close");
 
   if (!preview || !previewImg) return;
 
-  // State for navigation
   let currentImages = [];
   let currentIndex = -1;
 
   function openPreview(imgEl) {
-    // Only navigate within the same carousel
     const carousel = imgEl.closest(".carousel");
     if (!carousel) return;
 
@@ -348,7 +350,6 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   function showIndex(nextIndex) {
     if (!currentImages.length) return;
 
-    // Wrap around
     if (nextIndex < 0) nextIndex = currentImages.length - 1;
     if (nextIndex >= currentImages.length) nextIndex = 0;
 
@@ -356,21 +357,27 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     previewImg.src = currentImages[currentIndex].src;
   }
 
-  // Open on click
+  // Open on image click
   document.addEventListener("click", (e) => {
     const img = e.target.closest(".carousel img");
     if (!img) return;
     openPreview(img);
   });
 
-  // Close when clicking backdrop/outside
+  // Close button
+  closeBtn?.addEventListener("click", closePreview);
+
+  // Click backdrop / outside image
   preview.addEventListener("click", (e) => {
-    if (e.target === preview || e.target.classList.contains("img-preview-backdrop")) {
+    if (
+      e.target === preview ||
+      e.target.classList.contains("img-preview-backdrop")
+    ) {
       closePreview();
     }
   });
 
-  // Keyboard controls (ESC + arrows)
+  // Keyboard controls
   document.addEventListener("keydown", (e) => {
     const isOpen = preview.getAttribute("aria-hidden") === "false";
     if (!isOpen) return;
@@ -389,7 +396,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       showIndex(currentIndex - 1);
-      return;
     }
   });
 })();
+
