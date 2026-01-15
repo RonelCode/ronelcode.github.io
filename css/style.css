@@ -74,7 +74,8 @@ a:hover{ text-decoration:none; }
 .carousel-btn:focus-visible,
 .dot:focus-visible,
 .projects-dot:focus-visible,
-.menu-btn:focus-visible{
+.menu-btn:focus-visible,
+.img-preview-close:focus-visible{
   outline:2px solid rgba(124,140,255,.65);
   outline-offset:3px;
 }
@@ -200,6 +201,7 @@ nav a:hover{
   border:1px solid var(--border);
   border-radius:var(--radius-lg);
   box-shadow:var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .card:hover { transform: translateY(-2px); }
@@ -224,7 +226,7 @@ nav a:hover{
 }
 
 /* =========================
-   HERO (FIXED LAYOUT)
+   HERO
 ========================= */
 .hero{ padding:4.5rem 0 3rem; }
 
@@ -411,7 +413,6 @@ nav a:hover{
 
 .project{
   overflow:hidden;
-  transition:transform .15s ease, box-shadow .15s ease;
 }
 
 .project:hover{
@@ -424,7 +425,7 @@ nav a:hover{
 .project h3{ margin:0 0 .35rem; font-size:1.15rem; }
 .project p{ margin:0; color:var(--muted); }
 
-.links{ display:flex; gap:.85rem; margin-top:.85rem; }
+.links{ display:flex; gap:.85rem; margin-top:.85rem; align-items:center; flex-wrap:wrap; }
 .links a{ color:var(--primary); font-weight:900; }
 
 .projects-controls{ display:flex; gap:.6rem; align-items:center; }
@@ -492,6 +493,7 @@ nav a:hover{
   object-fit:cover;
   flex:0 0 100%;
   display:block;
+  cursor: zoom-in; /* ✅ hint for preview */
 }
 
 .carousel-btn{
@@ -748,24 +750,11 @@ textarea { min-height: 140px; }
     justify-content: center;
   }
 
-  /* =========================
-     MOBILE IMPROVEMENTS
-  ========================= */
+  /* mobile improvements */
+  .hero { padding: 2.6rem 0 2rem; }
+  .hero-card { padding: 1.35rem; gap: .9rem; }
 
-  /* 1) Reduce hero height */
-  .hero { 
-    padding: 2.6rem 0 2rem;
-  }
-
-  .hero-card {
-    padding: 1.35rem;
-    gap: .9rem;
-  }
-
-  .kicker{
-    margin: 0 0 .45rem;
-    font-size: .72rem;
-  }
+  .kicker{ margin: 0 0 .45rem; font-size: .72rem; }
 
   .hero-card h1{
     font-size: clamp(1.65rem, 7vw, 2.15rem);
@@ -774,151 +763,101 @@ textarea { min-height: 140px; }
     max-width: 26ch;
   }
 
-  .subtitle{
-    font-size: .92rem;
-    line-height: 1.55;
-  }
+  .subtitle{ font-size: .92rem; line-height: 1.55; }
+  .cta{ margin-top: 1rem; gap: .6rem; }
+  .btn{ padding: .62rem .95rem; }
 
-  .cta{
-    margin-top: 1rem;
-    gap: .6rem;
-  }
+  .hero-avatar{ width: 92px; height: 92px; }
+  .hero-side-card{ padding: .75rem .85rem; }
+  .hero-side-text{ font-size: .88rem; }
 
-  .btn{
-    padding: .62rem .95rem;
-  }
-
-  /* Smaller avatar */
-  .hero-avatar{
-    width: 92px;
-    height: 92px;
-  }
-
-  /* Right mini card tighter */
-  .hero-side-card{
-    padding: .75rem .85rem;
-  }
-
-  .hero-side-text{
-    font-size: .88rem;
-  }
-
-  /* 2) Highlights compact */
-  .hero-highlights{
-    margin-top: .95rem;
-    gap: .5rem;
-  }
-
-  .mini{
-    padding: .48rem .65rem;
-  }
-
+  .hero-highlights{ margin-top: .95rem; gap: .5rem; }
+  .mini{ padding: .48rem .65rem; }
   .mini strong{ font-size: .9rem; }
   .mini span{ font-size: .82rem; }
 
-  /* Optional: hide Apollo badge if you added class="mini apollo" */
-  .mini.apollo{
-    display:none;
-  }
+  .section{ padding: 2.6rem 0; }
+  .section-header h2{ font-size: 1.4rem; }
 
-  /* 3) Sections tighter */
-  .section{
-    padding: 2.6rem 0;
-  }
+  .projects-dot{ width: 7px; height: 7px; }
+  .projects-dot.active{ width: 18px; }
 
-  .section-header h2{
-    font-size: 1.4rem;
-  }
+  .skill-card{ padding: 1.15rem; }
+  .skill-card h3{ margin: 0 0 .65rem; }
 
-  /* 4) Dots slightly smaller */
-  .projects-dot{
-    width: 7px;
-    height: 7px;
-  }
-  .projects-dot.active{
-    width: 18px;
-  }
-
-  /* 5) Skills tighter */
-  .skill-card{
-    padding: 1.15rem;
-  }
-
-  .skill-card h3{
-    margin: 0 0 .65rem;
-  }
-
-  .chip{
-    font-size: .82rem;
-    padding: .3rem .6rem;
-  }
+  .chip{ font-size: .82rem; padding: .3rem .6rem; }
 }
 
 /* ===========================
-   Image Preview Lightbox
+   Image Preview Lightbox (UPDATED)
 =========================== */
 .img-preview{
   position: fixed;
   inset: 0;
   display: none;
   z-index: 10000;
+
+  /* fade */
+  opacity: 0;
+  transition: opacity .16s ease;
 }
+
 .img-preview[aria-hidden="false"]{
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 1;
 }
 
 .img-preview-backdrop{
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.75);
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(8px);
 }
 
 /* Image */
 #imgPreviewImg{
   position: relative;
-  max-width: 92vw;
-  max-height: 92vh;
-  border-radius: 14px;
-  box-shadow: 0 30px 90px rgba(0,0,0,.6);
-  animation: zoomIn .18s ease-out;
   z-index: 1;
+
+  max-width: 92vw;
+  max-height: min(92vh, 760px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 30px 90px rgba(0,0,0,.65);
+
+  animation: zoomIn .18s ease-out;
 }
 
 /* Close button */
 .img-preview-close{
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
   z-index: 2;
+
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(0,0,0,.55);
-  color: #fff;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
+
+  backdrop-filter: blur(10px);
 }
+
 .img-preview-close:hover{
-  background: rgba(0,0,0,.8);
+  background: rgba(255,255,255,.14);
 }
 
-/* Cursor hint */
-.carousel img{
-  cursor: zoom-in;
-}
-
+/* Animation */
 @keyframes zoomIn{
-  from{
-    transform: scale(.96);
-    opacity: .6;
-  }
-  to{
-    transform: scale(1);
-    opacity: 1;
-  }
+  from{ transform: scale(.965); opacity: .75; }
+  to{ transform: scale(1); opacity: 1; }
 }
