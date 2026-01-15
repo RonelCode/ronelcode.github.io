@@ -876,6 +876,7 @@ textarea { min-height: 140px; }
   backdrop-filter: blur(6px);
 }
 
+/* Image */
 #imgPreviewImg{
   position: relative;
   max-width: 92vw;
@@ -883,6 +884,32 @@ textarea { min-height: 140px; }
   border-radius: 14px;
   box-shadow: 0 30px 90px rgba(0,0,0,.6);
   animation: zoomIn .18s ease-out;
+  z-index: 1;
+}
+
+/* Close button */
+.img-preview-close{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.img-preview-close:hover{
+  background: rgba(0,0,0,.8);
+}
+
+/* Cursor hint */
+.carousel img{
+  cursor: zoom-in;
 }
 
 @keyframes zoomIn{
@@ -895,9 +922,3 @@ textarea { min-height: 140px; }
     opacity: 1;
   }
 }
-
-/* Cursor hint */
-.carousel img{
-  cursor: zoom-in;
-}
-
