@@ -116,12 +116,13 @@
         <div class="projects-carousel" data-projects-carousel>
           <div class="projects-track" data-projects-track>
 
-            <!-- Project 1 (FIXED + Updated content) -->
+            <!-- Project 1 -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
                   <div class="carousel-track" data-track>
                     <img src="assets/images/projects/10-1.png" alt="Portal screenshot 1" />
+                    <!-- NOTE: these filenames use dots; keep as-is only if your files are really named like this -->
                     <img src="assets/images/projects/10.2.png" alt="Portal screenshot 2" />
                     <img src="assets/images/projects/10.3.png" alt="Portal screenshot 3" />
                     <img src="assets/images/projects/10.4.png" alt="Portal screenshot 4" />
@@ -156,6 +157,10 @@
                 </div>
 
                 <div class="links">
+                  <!-- ✅ Added back (you already have the modal below) -->
+                  <button class="btn" type="button" data-modal-open="case-portal" aria-haspopup="dialog">
+                    Case Study
+                  </button>
                   <span class="muted" style="margin-left:10px;">Demo available on request</span>
                 </div>
               </div>
@@ -257,7 +262,7 @@
               </div>
             </article>
 
-            <!-- Project 5 -->
+            <!-- Project 5 (Fixed indentation + ensured tags/links are properly inside project-body) -->
             <article class="card project project-slide">
               <div class="project-media">
                 <div class="carousel" data-carousel>
@@ -282,8 +287,8 @@
                   <span class="chip">Auth</span>
                 </div>
 
-              <div class="links">
-                  <span class="muted" style="margin-left:10px;">Demo available on request</span>
+                <div class="links">
+                  <span class="muted">Demo available on request</span>
                 </div>
               </div>
             </article>
@@ -533,7 +538,6 @@
     <!-- Contact -->
     <section id="contact" class="section">
       <div class="container contact-grid">
-
         <!-- Left -->
         <div class="card section-pad contact-card">
           <h3>Let’s work together</h3>
@@ -581,12 +585,11 @@
           <button class="btn primary" type="submit">Send</button>
           <p class="form-note" id="formNote" aria-live="polite"></p>
         </form>
-
       </div>
     </section>
   </main>
 
-  <!-- ✅ Case Study Modal (added) -->
+  <!-- Case Study Modal -->
   <div class="modal" id="case-portal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="casePortalTitle">
     <div class="modal-backdrop" data-modal-close></div>
 
@@ -621,21 +624,15 @@
       </div>
     </div>
   </div>
-<!-- Image Preview Lightbox -->
-<div class="img-preview" id="imgPreview" aria-hidden="true">
-  <div class="img-preview-backdrop"></div>
 
-  <button
-    class="img-preview-close"
-    type="button"
-    aria-label="Close image preview"
-  >
-    ✕
-  </button>
+  <!-- Image Preview Lightbox -->
+  <div class="img-preview" id="imgPreview" aria-hidden="true">
+    <div class="img-preview-backdrop"></div>
 
-  <img id="imgPreviewImg" alt="Image preview" />
-</div>
+    <button class="img-preview-close" type="button" aria-label="Close image preview">✕</button>
 
+    <img id="imgPreviewImg" alt="Image preview" />
+  </div>
 
   <footer class="footer">
     <p>© <span id="year"></span> Ronel Alivio</p>
