@@ -625,14 +625,40 @@
     </div>
   </div>
 
-  <!-- Image Preview Lightbox -->
-  <div class="img-preview" id="imgPreview" aria-hidden="true">
-    <div class="img-preview-backdrop"></div>
+ <!-- Image Preview Lightbox -->
+<div class="img-preview" id="imgPreview" aria-hidden="true">
+  <div class="img-preview-backdrop"></div>
 
-    <button class="img-preview-close" type="button" aria-label="Close image preview">✕</button>
+  <!-- Prev -->
+  <button
+    class="img-preview-nav prev"
+    type="button"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
 
-    <img id="imgPreviewImg" alt="Image preview" />
-  </div>
+  <!-- Next -->
+  <button
+    class="img-preview-nav next"
+    type="button"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+
+  <!-- Close -->
+  <button
+    class="img-preview-close"
+    type="button"
+    aria-label="Close image preview"
+  >
+    ✕
+  </button>
+
+  <img id="imgPreviewImg" alt="Image preview" />
+</div>
+
 
   <footer class="footer">
     <p>© <span id="year"></span> Ronel Alivio</p>
