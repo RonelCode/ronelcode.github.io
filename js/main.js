@@ -100,7 +100,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 // =====================
 // Projects carousel (desktop 2 / mobile 1) + autoplay
 // =====================
-(function initProjectsCarousel() {
+/* (function initProjectsCarousel() {
   const root = document.querySelector("[data-projects-carousel]");
   if (!root) return;
 
@@ -203,7 +203,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     updateTransform();
     startAutoplay();
   });
-})();
+})(); */
 
 // ===========================
 // Image Preview Lightbox
