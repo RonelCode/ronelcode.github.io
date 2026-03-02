@@ -98,7 +98,7 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
 });
 
 // =====================
-// Projects carousel (desktop 2 / mobile 1) + autoplay
+// Projects carousel (desktop 2 / mobile 1) - NO autoplay
 // =====================
 (function initProjectsCarousel() {
   const root = document.querySelector("[data-projects-carousel]");
@@ -113,7 +113,6 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const prev = document.querySelector("[data-proj-prev]");
   const next = document.querySelector("[data-proj-next]");
   const dotsWrap = root.querySelector("[data-projects-dots]");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let index = 0;
   let perView = window.matchMedia("(max-width: 768px)").matches ? 1 : 2;
@@ -139,8 +138,9 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     dotsWrap.innerHTML = "";
     for (let i = 0; i <= maxIndex(); i++) {
       const b = document.createElement("button");
+      b.type = "button";
       b.className = "projects-dot" + (i === index ? " active" : "");
-      b.addEventListener("click", () => goTo(i, true));
+      b.addEventListener("click", () => goTo(i));
       dotsWrap.appendChild(b);
     }
   }
@@ -154,40 +154,29 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     );
   }
 
-  function goTo(i, user = false) {
+  function goTo(i) {
     index = i;
     clampIndex();
     updateTransform();
-    if (user) pauseTemporarily();
   }
 
-  function nextStep(user = false) {
-    goTo(index >= maxIndex() ? 0 : index + 1, user);
+  function nextStep() {
+    goTo(index >= maxIndex() ? 0 : index + 1);
   }
 
-  function prevStep(user = false) {
-    goTo(index <= 0 ? maxIndex() : index - 1, user);
+  function prevStep() {
+    goTo(index <= 0 ? maxIndex() : index - 1);
   }
 
-  prev?.addEventListener("click", () => prevStep(true));
-  next?.addEventListener("click", () => nextStep(true));
+  prev?.addEventListener("click", prevStep);
+  next?.addEventListener("click", nextStep);
 
-  // Autoplay
- /* let timer = null;
-  let paused = false;
-
-  function startAutoplay() {
-    if (prefersReducedMotion) return;
-    timer = setInterval(() => !paused && nextStep(), 4500);
-  }*/
-
-  function pauseTemporarily() {
-    paused = true;
-    setTimeout(() => (paused = false), 1800);
-  }
-
-  root.addEventListener("mouseenter", () => (paused = true));
-  root.addEventListener("mouseleave", () => (paused = false));
+  // Optional: keyboard support when carousel is focused
+  root.setAttribute("tabindex", "0");
+  root.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") prevStep();
+    if (e.key === "ArrowRight") nextStep();
+  });
 
   window.addEventListener("resize", () => {
     updatePerView();
@@ -199,11 +188,8 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   updatePerView();
   clampIndex();
   buildDots();
-  requestAnimationFrame(() => {
-    updateTransform();
-    startAutoplay();
-  });
-})(); 
+  requestAnimationFrame(updateTransform);
+})();
 
 // ===========================
 // Image Preview Lightbox
